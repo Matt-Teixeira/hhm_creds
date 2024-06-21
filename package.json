@@ -1,0 +1,22 @@
+{
+  "name": "creds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ge_ct": "node index.js GE CT",
+    "ge_cv": "node index.js GE CV/IR",
+    "ge_mri": "node index.js GE MRI",
+    "philips_ct": "node index.js Philips CT",
+    "philips_cv": "node index.js Philips CV/IR",
+    "philips_mri": "node index.js Philips MRI",
+    "siemens_cv": "node index.js Siemens CV/IR"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg-promise": "^11.8.0"
+  }
+}

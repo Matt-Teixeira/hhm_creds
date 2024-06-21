@@ -1,0 +1,13 @@
+.env
+node_modules/
+test/
+test*/
+files/
+logs/
+system_enrollment/
+NOTES/
+logger.js
+*.txt
+utils/
+scripts_on_mmb/
+siemens_cv_test/
