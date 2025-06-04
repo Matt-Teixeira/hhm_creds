@@ -1,5 +1,6 @@
 SELECT
     cona.system_id,
+    hhmc.id AS cred_id,
     hhmc.manufacturer,
     hhmc.modality,
     hhmc.user_enc,
