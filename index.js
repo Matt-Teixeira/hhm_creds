@@ -76,6 +76,8 @@ async function on_boot() {
 
     console.log(obj);
   }
+
+  // ADD DEFAULT 'npm run' THAT PROCESSES AN ARRAY OF SMEs
 }
 
 on_boot();
