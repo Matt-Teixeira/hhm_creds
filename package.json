@@ -10,7 +10,8 @@
     "philips_ct": "node index.js Philips CT",
     "philips_cv": "node index.js Philips CV/IR",
     "philips_mri": "node index.js Philips MRI",
-    "siemens_cv": "node index.js Siemens CV/IR"
+    "siemens_cv": "node index.js Siemens CV/IR",
+    "sme_list": "ts-node list_of_sme.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,10 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "pg-promise": "^11.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
