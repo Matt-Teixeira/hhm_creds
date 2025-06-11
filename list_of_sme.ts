@@ -1,3 +1,11 @@
+/*
+To run this file, use either of the following commands:
+npx ts-node list_of_sme.ts
+npm run sme_list
+
+To add a system to the list, add it to the sme_list array.
+*/
+
 ("use strict");
 require("dotenv").config();
 const db = require("./db/pg-pool");
@@ -6,11 +14,10 @@ const { get_one_cred } = require("./sql/index");
 const { decryptString } = require("./encrypt");
 
 //Add in array of SME systems as strings
-sme_list = ['SME01123', 'SME01140', 'SME01141', 'SME01096'];
+let sme_list = ['SME01123', 'SME01140', 'SME01141', 'SME01096'];
+let output_list: { system_id: any; manufacturer: any; modality: any; user: any; pass: any; }[] = [];
 
 async function sme_list_boot() { 
-    output_list = [];
-
     for (let i = 0; i < sme_list.length; i++) {
         let system_id = sme_list[i];
         //console.log(`Getting credentials for system_id: ${system_id}`);
