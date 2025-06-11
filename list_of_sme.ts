@@ -15,9 +15,9 @@ const { decryptString } = require("./encrypt");
 
 //Add in array of SME systems as strings
 let sme_list = ['SME01123', 'SME01140', 'SME01141', 'SME01096'];
-let output_list: { system_id: any; manufacturer: any; modality: any; user: any; pass: any; }[] = [];
+let output_list: { system_id: string; manufacturer: string; modality: string; user: string; pass: string; }[] = [];
 
-async function sme_list_boot() { 
+async function sme_list_boot() {
     for (let i = 0; i < sme_list.length; i++) {
         let system_id = sme_list[i];
         //console.log(`Getting credentials for system_id: ${system_id}`);
