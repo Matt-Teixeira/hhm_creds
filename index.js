@@ -90,10 +90,15 @@ async function on_boot() {
   // NOT GREAT, BUT 'ELSE' RUNS IF ONLY ONE ARG IS SUPPLIED TO CMD LINE.
   // ONLY USED FOR RETURNING THE CREDENTIALS OF ONE SYSTEM
   // EXAMPLE: 'node index.js SME12345'
+  // expand to have array if creds abd return - no args - hard coded vars
   else {
     let system_id = process.argv[2];
+    console.log(`Getting credentials for system_id: ${system_id}`);
 
     let system_cred = await db.any(get_one_cred, [system_id]);
+    console.log("System credentials:");
+    console.log("=====================================");
+    console.log(`System Cred: ${system_cred[0]}`);
 
     console.log(system_cred);
 
