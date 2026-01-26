@@ -1,12 +1,15 @@
 ("use strict");
 require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
 const pgp = require("pg-promise")();
 const db = require("./db/pg-pool");
 const { get_creds, get_one_cred } = require("./sql/index");
 
-const { decryptString, encryptString } = require("./encrypt");
+const { decryptString, encryptString, decrypt_all } = require("./encrypt");
 
 async function on_boot() {
+  console.log(process.argv);
   // node index.js encrypt UESERNAME PASSWOED
   if (process.argv[2] === "encrypt") {
     let user = encryptString(process.argv[3]);
@@ -24,6 +27,37 @@ async function on_boot() {
 
     console.log(`USER ${process.argv[3]}   ---   ${user}`);
     console.log(`PASSWOED ${process.argv[4]}   ---   ${pass}`);
+    return;
+  }
+
+  if (process.argv[2] === "decrypt_all") {
+    const creds = await decrypt_all(db);
+
+    // Create CSV content
+    const headers = ["id", "user_num", "pass_num", "manufacturer", "modality", "user_enc", "password_enc", "user", "pass"];
+    const csvRows = [headers.join(",")];
+
+    for (const cred of creds) {
+      const row = headers.map(header => {
+        const value = cred[header] ?? "";
+        // Escape quotes and wrap in quotes if contains comma or quote
+        const strValue = String(value);
+        if (strValue.includes(",") || strValue.includes('"') || strValue.includes("\n")) {
+          return `"${strValue.replace(/"/g, '""')}"`;
+        }
+        return strValue;
+      });
+      csvRows.push(row.join(","));
+    }
+
+    const csvContent = csvRows.join("\n");
+    const csvPath = path.join(__dirname, "credentials.csv");
+    fs.writeFileSync(csvPath, csvContent);
+    console.log(`CSV file created: ${csvPath}`);
+
+    const jsonPath = path.join(__dirname, "credentials.json");
+    fs.writeFileSync(jsonPath, JSON.stringify(creds, null, 2));
+    console.log(`JSON file created: ${jsonPath}`);
     return;
   }
 
@@ -52,7 +86,7 @@ async function on_boot() {
 
       console.log(obj);
     }
-  } 
+  }
   // NOT GREAT, BUT 'ELSE' RUNS IF ONLY ONE ARG IS SUPPLIED TO CMD LINE.
   // ONLY USED FOR RETURNING THE CREDENTIALS OF ONE SYSTEM
   // EXAMPLE: 'node index.js SME12345'

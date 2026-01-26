@@ -11,3 +11,5 @@ logger.js
 utils/
 scripts_on_mmb/
 siemens_cv_test/
+credentials.json
+credentials.csv
